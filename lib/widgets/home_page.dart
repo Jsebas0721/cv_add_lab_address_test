@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   final _accountNumController = TextEditingController();
   String? _error;
   String? _accountNumber;
+  bool isAddingLab = false;
   Map<String, dynamic>? _accountInfo;
 
   @override
@@ -24,6 +25,13 @@ class _HomePageState extends State<HomePage> {
 
   void getAccountNum() {
     _accountNumber = _accountNumController.text;
+  }
+
+  void _addNewLab(){
+    setState(() {
+      isAddingLab = true;
+    });
+    print(isAddingLab);
   }
 
   Future<void> getAccountData(String accountNum) async {
@@ -115,7 +123,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
             _accountInfo != null
                 ? Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Table(
                         columnWidths: const <int, TableColumnWidth>{
@@ -168,6 +176,31 @@ class _HomePageState extends State<HomePage> {
                                 child: Text(
                                     _accountInfo!['default']['address_name']))
                           ])
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          TextButton.icon(
+                            onPressed: _addNewLab,
+                
+                            icon: const Icon(Icons.add_circle,
+                                color: Colors.white),
+                            label: const Text(
+                              "Add New Lab",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            style: ButtonStyle(
+                              shape: MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).colorScheme.onPrimary),
+                            ),
+                          ),
                         ],
                       ),
                     ],
