@@ -55,7 +55,7 @@ class _AccountSearhState extends State<AccountSearh> {
 
       if (_errorMessage != null) {
         showError = true;
-        Timer timer = Timer(const Duration(seconds: 2), () {
+        Timer(const Duration(seconds: 2), () {
           setState(() {
             showError = false;
           });
@@ -80,7 +80,7 @@ class _AccountSearhState extends State<AccountSearh> {
           {"account_no": accountNumber, "lab_code": labCode},
         ),
       );
-
+      
       if (response.statusCode == 200) {
         setState(() {
           _accountInfo = null;
@@ -96,7 +96,7 @@ class _AccountSearhState extends State<AccountSearh> {
 
       if (_errorMessage != null) {
         showError = true;
-        Timer timer = Timer(const Duration(seconds: 2), () {
+        Timer(const Duration(seconds: 2), () {
           setState(() {
             showError = false;
           });
@@ -113,8 +113,10 @@ class _AccountSearhState extends State<AccountSearh> {
     if (showError) {
       message = Container(
         width: 250,
+        height: 30,
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(color: _messageColor),
-        child: Text(_errorMessage!),
+        child: Text(_errorMessage!, style: const TextStyle(fontWeight: FontWeight.bold),),
       );
     }
     return Column(

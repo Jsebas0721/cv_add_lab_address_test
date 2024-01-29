@@ -18,7 +18,7 @@ class _AccountInfoState extends State<AccountInfo> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Divider(color: Colors.white, thickness: 10),
+        const Divider(color: Colors.white, thickness: 5),
         Table(
           columnWidths: const <int, TableColumnWidth>{
             0: FixedColumnWidth(250),
@@ -76,12 +76,12 @@ class _AccountInfoState extends State<AccountInfo> {
               _isAddingLab = !_isAddingLab;
             });
           },
-          icon: Icon(_isAddingLab ? Icons.remove_circle : Icons.add_circle,
-              color: Colors.white),
           label: Text(
             _isAddingLab ? "Cancel" : "Add New Lab",
             style: const TextStyle(color: Colors.white),
           ),
+          icon: Icon(_isAddingLab ? Icons.remove_circle : Icons.add_circle,
+              color: Colors.white),
           style: ButtonStyle(
             shape: MaterialStatePropertyAll(
               RoundedRectangleBorder(

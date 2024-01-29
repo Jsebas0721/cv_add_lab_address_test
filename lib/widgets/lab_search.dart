@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:convert';
-
 import 'package:add_lab_address_test/widgets/lab_info.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -16,15 +16,16 @@ class _LabSearchState extends State<LabSearch> {
   final _labCodeNumController = TextEditingController();
   String? _labCodeNumber;
   List<dynamic>? _labCode;
-  String? _error;
+  String? _errorMessage;
+  bool showError = false;
 
   Future<void> validateLab(String labCode) async {
     if (_labCodeNumber!.trim().isEmpty) {
       setState(() {
-        _error = "Please Enter a Lab Code.";
+        _errorMessage = "Please Enter a Lab Code.";
         _labCodeNumController.clear();
       });
-    
+      return;
     }
     final url = Uri.https("cycling-api.cvoapis.com", "/magento/lab/$labCode");
 
@@ -38,16 +39,25 @@ class _LabSearchState extends State<LabSearch> {
         });
       } else if (response.statusCode >= 400) {
         setState(() {
-          _error = "Failed to fetch data";
+          _errorMessage = "Failed to fetch data";
         });
-        print(_error);
+        print(_errorMessage);
       } else if (response.body == '[]') {
         setState(() {
           _labCode = null;
           _labCodeNumController.clear();
-          _error = "Lab Code number doesn't exist.";
+          _errorMessage = "Lab Code number doesn't exist.";
         });
-        print(_error);
+        print(_errorMessage);
+      }
+
+      if (_errorMessage != null) {
+        showError = true;
+        Timer(const Duration(seconds: 2), () {
+          setState(() {
+            showError = false;
+          });
+        });
       }
     } catch (e) {
       print("Something went wrong. $e");
@@ -56,6 +66,20 @@ class _LabSearchState extends State<LabSearch> {
 
   @override
   Widget build(BuildContext context) {
+    Widget message = Container();
+    if (showError) {
+      message = Container(
+        width: 250,
+        height: 30,
+        padding: const EdgeInsets.all(5),
+        decoration: const BoxDecoration(color: Colors.red),
+        child: Text(
+          _errorMessage!,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -75,10 +99,7 @@ class _LabSearchState extends State<LabSearch> {
         const SizedBox(height: 20),
         _labCode != null
             ? LabInfo(labCode: _labCode!, onAddLab: widget.onAddLab)
-            : Container(
-                decoration: const BoxDecoration(color: Colors.red),
-                child: Text(_error != null ? _error! : ""),
-              ),
+            : message
       ],
     );
   }
