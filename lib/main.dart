@@ -8,13 +8,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'New LAB Address',
+      title: 'Add LAB Address',
       theme: ThemeData(
-         colorScheme: ColorScheme.fromSeed(
+        colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromARGB(255, 1, 46, 105),
           brightness: Brightness.dark,
           surface: const Color.fromARGB(255, 42, 51, 59),
@@ -25,5 +24,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

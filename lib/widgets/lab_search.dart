@@ -31,7 +31,6 @@ class _LabSearchState extends State<LabSearch> {
 
     try {
       final response = await http.get(url);
-      print(response.body);
       if (response.statusCode == 200 && response.body != '[]') {
         setState(() {
           _labCode = json.decode(response.body);
@@ -41,14 +40,12 @@ class _LabSearchState extends State<LabSearch> {
         setState(() {
           _errorMessage = "Failed to fetch data";
         });
-        print(_errorMessage);
       } else if (response.body == '[]') {
         setState(() {
           _labCode = null;
           _labCodeNumController.clear();
           _errorMessage = "Lab Code number doesn't exist.";
         });
-        print(_errorMessage);
       }
 
       if (_errorMessage != null) {
@@ -93,7 +90,7 @@ class _LabSearchState extends State<LabSearch> {
             },
             controller: _labCodeNumController,
             decoration: const InputDecoration(
-                border: OutlineInputBorder(), label: Text("Lab Code...")),
+                border: OutlineInputBorder(), label: Text("Enter Lab Code")),
           ),
         ),
         const SizedBox(height: 20),

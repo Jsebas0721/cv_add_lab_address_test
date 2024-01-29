@@ -9,7 +9,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
         actions: [
           Center(
             child: Image.asset(
@@ -22,9 +21,13 @@ class HomePage extends StatelessWidget {
         ],
         toolbarHeight: 80,
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
-        title:  Padding(
+        title: Padding(
           padding: const EdgeInsets.all(5),
-          child: Text("ADD NEW LAB ADDRESS", style: GoogleFonts.bebasNeue(fontWeight: FontWeight.bold, fontSize: 30),),
+          child: Text(
+            "ADD NEW LAB ADDRESS",
+            style: GoogleFonts.bebasNeue(
+                fontWeight: FontWeight.bold, fontSize: 30),
+          ),
         ),
       ),
       body: const Padding(
