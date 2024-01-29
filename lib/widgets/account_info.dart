@@ -18,6 +18,7 @@ class _AccountInfoState extends State<AccountInfo> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Divider(color: Colors.white, thickness: 10),
         Table(
           columnWidths: const <int, TableColumnWidth>{
             0: FixedColumnWidth(250),
